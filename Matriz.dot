@@ -1,0 +1,21 @@
+
+digraph G {
+subgraph {
+nodo_00[label=" Prueba 2 ",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
+nodo_01_left[label="Tiempo\n5",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
+nodo_00 -> nodo_01_left;
+nodo_01_right[label="Amplitud\n4",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
+nodo_00 -> nodo_01_right;
+}
+
+fontname="Helvetica,Arial,sans-serif"
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+a0 [shape=none label=<
+<TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:red" gradientangle="315">
+            <TR><TD border="3"  bgcolor="yellow" gradientangle="315">12</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">0</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">1</TD>
+
+</TR></TABLE>>];
+}        

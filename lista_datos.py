@@ -1,5 +1,4 @@
 from nodo_dato import nodo_dato
-import sys
 import os
 
 
@@ -38,8 +37,8 @@ class lista_datos:
         print("============================================================")
 
 
-    def generar_grafica(self, nombre_signal, tiempo, amplitud):
-        f = open('bb.dot', 'w')
+    def graficar(self, nombre_signal, tiempo, amplitud):
+        # f = open('bb.dot', 'w')
         # variable que conmtiene la configuración del grafo
         # se crea el subgrafo primero
         text="""
@@ -91,11 +90,12 @@ a0 [shape=none label=<
 </TR></TABLE>>];
 }        
 """
+        return text
         
-        # se guara todo el texto y se cierra el archivo 
-        f.write(text)
-        f.close()
-        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
-        # se pasa el archivo a png
-        os.system('dot -Tpng bb.dot -o grafo.png')
-        print("Grafica generada")
+        # # se guara todo el texto y se cierra el archivo 
+        # f.write(text)
+        # f.close()
+        # os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
+        # # se pasa el archivo a png
+        # os.system('dot -Tpng bb.dot -o grafo.png')
+        # print("Grafica generada")

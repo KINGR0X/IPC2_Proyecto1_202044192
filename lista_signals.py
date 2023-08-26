@@ -50,17 +50,21 @@ class lista_signals:
     def grafica_mi_lista_original(self):
         actual = self.primero
         while actual != None:
-            actual.signall.lista_datos.generar_grafica(actual.signall.nombre,
+            dot = actual.signall.lista_datos.graficar(actual.signall.nombre,
                                                        str(actual.signall.tiempo),
                                                        str(actual.signall.amplitud))
             # actual.signal.lista_patrones_celdas.recorrer_e_imprimir_lista()
             actual = actual.siguiente
 
+        return dot
+
     def grafica_mi_lista_de_patrones(self):
         actual = self.primero
         while actual != None:
-            actual.signall.lista_patrones_datos.generar_grafica(actual.signall.nombre,
+            dot= actual.signall.lista_patrones_datos.graficar(actual.signall.nombre,
                                                                 str(actual.signall.tiempo),
                                                                 str(actual.signall.amplitud))
             # actual.signal.lista_patrones_celdas.recorrer_e_imprimir_lista()
             actual = actual.siguiente
+
+        return dot

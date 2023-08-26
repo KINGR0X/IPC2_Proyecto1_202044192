@@ -4,6 +4,7 @@ from signall import signall
 from lista_signals import lista_signals
 from lista_datos import lista_datos
 from dato import dato
+import os
 
 # Recuperar el xml
 ruta = askopenfilename()
@@ -58,8 +59,33 @@ for signal_temporal in raiz.findall('senal'):
     lista_signals_temporal.insertar_dato(signall(
         nombre_signal, tiempo_signal, amplitud_signal, lista_datos_temporal, lista_datos_patrones_temporal))
     
+# === funciones para generar las graficas ===
+
+def generar_grafica_original(nombreGrafica):
+        nombre = nombreGrafica+".dot"
+        f = open(nombre, 'w')
+         # se guara todo el texto y se cierra el archivo 
+        f.write(str(lista_signals_temporal.grafica_mi_lista_original()))
+        f.close()
+        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
+        # se pasa el archivo a png
+        os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
+        print("Grafica generada")
 
 
-# lista_signals_temporal.recorrer_e_imprimir_lista()
+# def generar_grafica_patrones(nombreGrafica):
+#         nombre = nombreGrafica+".dot"
+#         f = open(nombre, 'w')
+#          # se guara todo el texto y se cierra el archivo 
+#         f.write(str(lista_signals_temporal.grafica_mi_lista_de_patrones()))
+#         f.close()
+#         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
+#         # se pasa el archivo a png
+#         os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
+#         print("Grafica de patrones generada")
 
-lista_signals_temporal.grafica_mi_lista_original()
+
+lista_signals_temporal.recorrer_e_imprimir_lista()
+
+generar_grafica_original("Matriz")
+# generar_grafica_patrones("MatrizPatrones")
