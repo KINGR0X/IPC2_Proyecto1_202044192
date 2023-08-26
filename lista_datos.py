@@ -16,7 +16,7 @@ class lista_datos:
             return
 
         # variable temporal para recorrer nuestra lista
-        actual = self.primero
+        actual =self.primero
 
         # Con el while mientras actual.siguiente tenga un nodo al que apunta siguiente entonces se ejecuta el ciclo
         while actual.siguiente:
@@ -38,41 +38,64 @@ class lista_datos:
         print("============================================================")
 
 
-    # def generar_grafica(self, nombre_carcel, niveles, datos_por_nivel):
-    #     f = open('bb.dot', 'w')
-    #     # configuraciones del grafo
-    #     text = """
-    #         digraph G {"niveles="""+niveles+"""","DatosNivel="""+datos_por_nivel+""""->" """+nombre_carcel + """" bgcolor="#3990C4" style="filled"
-    #         subgraph cluster1 {fillcolor="blue:red" style="filled"
-    #         node [shape=circle fillcolor="gold:brown" style="radial" gradientangle=180]
-    #         a0 [ label=<
-    #         <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:red" gradientangle="315">\n"""
-    #     actual = self.primero
-    #     sentinela_de_filas = actual.dato.nivel  # iniciaria en 1
-    #     fila_iniciada = False
-    #     while actual != None:
-    #         # Si mi fila actual es diferente a la que viene
-    #         if sentinela_de_filas != actual.dato.nivel:
-    #             # print(sentinela_de_filas,actual.dato.nivel,"hola")
-    #             sentinela_de_filas = actual.dato.nivel
-    #             fila_iniciada = False
-    #             # Cerramos la fila
-    #             text += """</TR>\n"""
-    #         if fila_iniciada == False:
-    #             fila_iniciada = True
-    #             # Abrimos la fila
-    #             text += """<TR>"""
-    #             text += """<TD border="3"  bgcolor="yellow" gradientangle="315">""" + \
-    #                 str(actual.dato.prisionero)+"""</TD>\n"""
-    #         else:
-    #             text += """<TD border="3"  bgcolor="yellow" gradientangle="315">""" + \
-    #                 str(actual.dato.prisionero)+"""</TD>\n"""
-    #         actual = actual.siguiente
-    #     text += """ </TR></TABLE>>];
-    #             }
-    #             }\n"""
-    #     f.write(text)
-    #     f.close()
-    #     os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
-    #     os.system('dot -Tpng bb.dot -o 17agosto.png')
-    #     print("terminado")
+    def generar_grafica(self, nombre_signal, tiempo, amplitud):
+        f = open('bb.dot', 'w')
+        # variable que conmtiene la configuración del grafo
+        # se crea el subgrafo primero
+        text="""
+digraph G {
+subgraph {
+nodo_00[label=" """+nombre_signal+""" ",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
+nodo_01_left[label="Tiempo\\n"""+tiempo+"""",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
+nodo_00 -> nodo_01_left;
+nodo_01_right[label="Amplitud\\n"""+amplitud+"""",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
+nodo_00 -> nodo_01_right;
+}
+
+fontname="Helvetica,Arial,sans-serif"
+node [fontname="Helvetica,Arial,sans-serif"]
+edge [fontname="Helvetica,Arial,sans-serif"]
+a0 [shape=none label=<
+<TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:red" gradientangle="315">
+            """
+
+        actual = self.primero
+        sentinela_de_filas = actual.dato.tiempo  # iniciaria en 1, verifica si se cambio de linea
+        fila_iniciada = False # para saber si se inicio una nueva fila
+
+        while actual != None:
+            # Si mi fila actual es diferente a la que viene, ej: t=1 y el siguiente es t=2
+            if sentinela_de_filas != actual.dato.tiempo:
+                sentinela_de_filas = actual.dato.tiempo
+                # aun no se inicia una nueva fila por lo que es False
+                fila_iniciada = False
+                # Cerramos la fila
+                text += """</TR>\n"""
+
+            # si la fila iniciada es Fasle es porque se acaba de cerrar una fila, entonces inicializamos la nueva fila
+            if fila_iniciada == False:
+                fila_iniciada = True
+                # Abrimos la fila
+                text += """<TR>"""
+                text += """<TD border="3"  bgcolor="yellow" gradientangle="315">""" + \
+                    str(actual.dato.frecuencia)+"""</TD>\n"""
+            
+            # Si no se da ninguno de los csos anteriores entonces secagrega una celda con el TD
+            else:
+                text += """<TD border="3"  bgcolor="yellow" gradientangle="315">""" + \
+                    str(actual.dato.frecuencia)+"""</TD>\n"""
+            actual = actual.siguiente
+
+        # al fiunalizar el while se cierra la tablas
+        text += """
+</TR></TABLE>>];
+}        
+"""
+        
+        # se guara todo el texto y se cierra el archivo 
+        f.write(text)
+        f.close()
+        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
+        # se pasa el archivo a png
+        os.system('dot -Tpng bb.dot -o grafo.png')
+        print("Grafica generada")

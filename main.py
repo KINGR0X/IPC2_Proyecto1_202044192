@@ -60,6 +60,6 @@ for signal_temporal in raiz.findall('senal'):
     
 
 
-lista_signals_temporal.recorrer_e_imprimir_lista()
+# lista_signals_temporal.recorrer_e_imprimir_lista()
 
-# lista_signals_temporal.grafica_mi_lista_de_patrones()
+lista_signals_temporal.grafica_mi_lista_original()

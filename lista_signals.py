@@ -47,20 +47,20 @@ class lista_signals:
         print("")
         print("")
 
-    # def grafica_mi_lista_original(self):
-    #     actual = self.primero
-    #     while actual != None:
-    #         actual.signal.lista_celdas.generar_grafica(actual.signal.nombre,
-    #                                                    str(actual.signal.niveles),
-    #                                                    str(actual.signal.celdas_por_nivel))
-    #         # actual.signal.lista_patrones_celdas.recorrer_e_imprimir_lista()
-    #         actual = actual.siguiente
+    def grafica_mi_lista_original(self):
+        actual = self.primero
+        while actual != None:
+            actual.signall.lista_datos.generar_grafica(actual.signall.nombre,
+                                                       str(actual.signall.tiempo),
+                                                       str(actual.signall.amplitud))
+            # actual.signal.lista_patrones_celdas.recorrer_e_imprimir_lista()
+            actual = actual.siguiente
 
-    # def grafica_mi_lista_de_patrones(self):
-    #     actual = self.primero
-    #     while actual != None:
-    #         actual.signal.lista_patrones_celdas.generar_grafica(actual.signal.nombre,
-    #                                                             str(actual.signal.niveles),
-    #                                                             str(actual.signal.celdas_por_nivel))
-    #         # actual.signal.lista_patrones_celdas.recorrer_e_imprimir_lista()
-    #         actual = actual.siguiente
+    def grafica_mi_lista_de_patrones(self):
+        actual = self.primero
+        while actual != None:
+            actual.signall.lista_patrones_datos.generar_grafica(actual.signall.nombre,
+                                                                str(actual.signall.tiempo),
+                                                                str(actual.signall.amplitud))
+            # actual.signal.lista_patrones_celdas.recorrer_e_imprimir_lista()
+            actual = actual.siguiente
