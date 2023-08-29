@@ -49,36 +49,6 @@ class lista_signals:
         print("")
         print("")
 
-    def imprimir_nombre_signals(self):
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-        actual = self.primero
-        while actual != None:
-            print(actual.signall.nombre)
-            actual = actual.siguiente
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-
-    def grafica_mi_lista_original(self):
-        actual = self.primero
-        while actual != None:
-            dot = actual.signall.lista_datos.graficar(actual.signall.nombre,
-                                                       str(actual.signall.tiempo),
-                                                       str(actual.signall.amplitud))
-            # actual.signal.lista_patrones_dato.recorrer_e_imprimir_lista()
-            actual = actual.siguiente
-
-        return dot
-
-    def grafica_mi_lista_de_patrones(self):
-        actual = self.primero
-        while actual != None:
-            dot= actual.signall.lista_patrones_datos.graficar(actual.signall.nombre,
-                                                                str(actual.signall.tiempo),
-                                                                str(actual.signall.amplitud))
-            # actual.signal.lista_patrones_dato.recorrer_e_imprimir_lista()
-            actual = actual.siguiente
-
-        return dot
-
     def calcular_los_patrones(self,nombre_signal):
         # recorremos la lista de carceles hasta encontrar una coincidencia
         actual = self.primero
@@ -112,3 +82,46 @@ class lista_signals:
                 return
             actual=actual.siguiente
         print ("No se encontró la signall")
+
+
+    def imprimir_nombre_signals(self):
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.primero
+        while actual != None:
+            print(actual.signall.nombre)
+            actual = actual.siguiente
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+    # def grafica_mi_lista_original(self):
+    #     actual = self.primero
+    #     while actual != None:
+    #         dot = actual.signall.lista_datos.graficar(actual.signall.nombre,
+    #                                                    str(actual.signall.tiempo),
+    #                                                    str(actual.signall.amplitud))
+    #         # actual.signal.lista_patrones_dato.recorrer_e_imprimir_lista()
+    #         actual = actual.siguiente
+
+        # return dot
+
+    def grafica_mi_lista_de_patrones(self):
+        actual = self.primero
+        while actual != None:
+            dot= actual.signall.lista_patrones_datos.graficar(actual.signall.nombre,
+                                                                str(actual.signall.tiempo),
+                                                                str(actual.signall.amplitud))
+            # actual.signal.lista_patrones_dato.recorrer_e_imprimir_lista()
+            actual = actual.siguiente
+
+        return dot
+
+    # graficar mi_lista_original colocando el nombre de la señal
+    def graficar_mi_lista_original(self, nombre_signal):
+        actual = self.primero
+        while actual != None:
+            if actual.signall.nombre == nombre_signal:
+                dot = actual.signall.lista_datos.graficar(actual.signall.nombre,
+                                                           str(actual.signall.tiempo),
+                                                           str(actual.signall.amplitud))
+                # actual.signal.lista_patrones_dato.recorrer_e_imprimir_lista()
+                return dot
+            actual = actual.siguiente

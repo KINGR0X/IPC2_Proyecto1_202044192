@@ -66,11 +66,11 @@ for signal_temporal in raiz.findall('senal'):
     
 # === funciones para generar las graficas ===
 
-def generar_grafica_original(nombreGrafica):
+def generar_grafica_original(nombreGrafica,nombreSignal):
         nombre = nombreGrafica+".dot"
         f = open(nombre, 'w')
          # se guara todo el texto y se cierra el archivo 
-        f.write(str(lista_signals_temporal.grafica_mi_lista_original()))
+        f.write(str(lista_signals_temporal.graficar_mi_lista_original(nombreSignal)))
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
         # se pasa el archivo a png
@@ -94,5 +94,5 @@ def generar_grafica_patrones(nombreGrafica):
 lista_signals_temporal.calcular_los_patrones("Prueba 1")
 # lista_signals_temporal.imprimir_nombre_signals()
 
-# generar_grafica_original("Matriz")
+generar_grafica_original("Matriz", "Prueba 3")
 # generar_grafica_patrones("MatrizPatrones")
