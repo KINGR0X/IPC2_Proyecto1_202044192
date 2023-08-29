@@ -4,6 +4,8 @@ from signall import signall
 from lista_signals import lista_signals
 from lista_datos import lista_datos
 from dato import dato
+from lista_patrones import lista_patrones
+from lista_grupos import lista_grupos
 import os
 
 # Recuperar el xml
@@ -31,6 +33,8 @@ for signal_temporal in raiz.findall('senal'):
     # Inicializamos listas temporales
     lista_datos_temporal = lista_datos()
     lista_datos_patrones_temporal = lista_datos()
+    lista_patrones_temporal = lista_patrones()
+    lista_grupos_temporal = lista_grupos()
 
     # se recorre cada linea del XML
     # se recorre cada dato que tiene la señal
@@ -57,7 +61,8 @@ for signal_temporal in raiz.findall('senal'):
 
     # Se guarda la lista de señales que hay en el XML     
     lista_signals_temporal.insertar_dato(signall(
-        nombre_signal, tiempo_signal, amplitud_signal, lista_datos_temporal, lista_datos_patrones_temporal))
+        nombre_signal, tiempo_signal, amplitud_signal, lista_datos_temporal, lista_datos_patrones_temporal,lista_patrones_temporal,lista_grupos_temporal))    
+
     
 # === funciones para generar las graficas ===
 
@@ -73,19 +78,21 @@ def generar_grafica_original(nombreGrafica):
         print("Grafica generada")
 
 
-# def generar_grafica_patrones(nombreGrafica):
-#         nombre = nombreGrafica+".dot"
-#         f = open(nombre, 'w')
-#          # se guara todo el texto y se cierra el archivo 
-#         f.write(str(lista_signals_temporal.grafica_mi_lista_de_patrones()))
-#         f.close()
-#         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
-#         # se pasa el archivo a png
-#         os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
-#         print("Grafica de patrones generada")
+def generar_grafica_patrones(nombreGrafica):
+        nombre = nombreGrafica+".dot"
+        f = open(nombre, 'w')
+         # se guara todo el texto y se cierra el archivo 
+        f.write(str(lista_signals_temporal.grafica_mi_lista_de_patrones()))
+        f.close()
+        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
+        # se pasa el archivo a png
+        os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
+        print("Grafica de patrones generada")
 
 
-lista_signals_temporal.recorrer_e_imprimir_lista()
+# lista_signals_temporal.recorrer_e_imprimir_lista()
+lista_signals_temporal.calcular_los_patrones("Prueba 1")
+# lista_signals_temporal.imprimir_nombre_signals()
 
-generar_grafica_original("Matriz")
+# generar_grafica_original("Matriz")
 # generar_grafica_patrones("MatrizPatrones")

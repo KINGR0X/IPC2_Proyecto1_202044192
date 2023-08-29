@@ -1,5 +1,6 @@
 from nodo_dato import nodo_dato
 import os
+from patron import patron
 
 
 class lista_datos:
@@ -79,7 +80,7 @@ a0 [shape=none label=<
                 text += """<TD border="3"  bgcolor="yellow" gradientangle="315">""" + \
                     str(actual.dato.frecuencia)+"""</TD>\n"""
             
-            # Si no se da ninguno de los csos anteriores entonces secagrega una celda con el TD
+            # Si no se da ninguno de los csos anteriores entonces secagrega una dato con el TD
             else:
                 text += """<TD border="3"  bgcolor="yellow" gradientangle="315">""" + \
                     str(actual.dato.frecuencia)+"""</TD>\n"""
@@ -91,11 +92,62 @@ a0 [shape=none label=<
 }        
 """
         return text
-        
-        # # se guara todo el texto y se cierra el archivo 
-        # f.write(text)
-        # f.close()
-        # os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
-        # # se pasa el archivo a png
-        # os.system('dot -Tpng bb.dot -o grafo.png')
-        # print("Grafica generada")
+    
+
+    def devolver_cadena_del_grupo(self,grupo):
+        string_resultado=""
+        string_temporal=""
+        buffer=""
+        # viene un parametro llamado grupo, es un string con este formato "1,2"
+        # recorremos caracter por caracter
+        for digito in grupo:
+        #si es digito
+            if digito.isdigit():
+                #añadimos al buffer
+                buffer+=digito
+            else:
+                # si no es buffer, lo vaciamos
+                string_temporal=""
+                #recorremos la lista y recuperamos los valores para este grupo
+                actual = self.primero
+                while actual != None:
+                # si encontramos coincidencia del digito y el tiempo , obtenemos su valor
+                    if actual.dato.tiempo==int(buffer):
+                        string_temporal+=str(actual.dato.frecuencia)+","
+                    actual = actual.siguiente
+                string_resultado+=string_temporal+"\n"
+                buffer=""
+        #devolvemos el string resultado
+        return string_resultado
+    
+
+    
+  # método para devolver los patrones por tiempo
+    def devolver_patrones_por_tiempo(self,lista_patrones_tiempo):
+        actual = self.primero
+        sentinela_de_filas=actual.dato.tiempo #iniciaria en 1
+        fila_iniciada=False
+        recolector_patron=""
+        while actual != None:
+        # si hay cambio de fila entramos al if
+            if sentinela_de_filas!=actual.dato.tiempo:
+                # fila iniciada se vuelve false, por que se acaba la fila
+                fila_iniciada=False
+                # ya que terminamos la fila, podemos guardar los patrones
+                lista_patrones_tiempo.insertar_dato(patron(sentinela_de_filas,recolector_patron))
+                recolector_patron=""
+                # actualizamos el valor de la fila (tiempo)
+                sentinela_de_filas=actual.dato.tiempo
+            # si fila iniciada es false, quiere decir que acaba de terminar fila y debemos empezar una nueva
+            if fila_iniciada==False:
+                fila_iniciada=True
+                #Recolectamos el valor, ya que estamos en la fila
+                recolector_patron+=str(actual.dato.frecuencia)+"-"
+            else:
+                #Recolectamos el valor, ya que estamos en la fila
+                recolector_patron+=str(actual.dato.frecuencia)+"-"
+            actual = actual.siguiente
+        # Agregamos un nuevo patrón, sería el de toda la fila, ej: 0-1-1-1
+        lista_patrones_tiempo.insertar_dato(patron(sentinela_de_filas,recolector_patron))
+        # devolvermos la lista llena con los patrones
+        return lista_patrones_tiempo
