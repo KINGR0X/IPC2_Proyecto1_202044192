@@ -92,13 +92,15 @@ a0 [shape=none label=<
 }        
 """
         return text
-    
 
     def devolver_cadena_del_grupo(self,grupo):
         string_resultado=""
         string_temporal=""
         buffer=""
-        # viene un parametro llamado grupo, es un string con este formato "1,2"
+        string_temporal2=""
+        string_auxiliar=""
+        contador=0
+        # viene un parametro llamado grupo, es un string con este formato "1,3"
         # recorremos caracter por caracter
         for digito in grupo:
         #si es digito
@@ -108,15 +110,34 @@ a0 [shape=none label=<
             else:
                 # si no es buffer, lo vaciamos
                 string_temporal=""
-                #recorremos la lista y recuperamos los valores para este grupo
+                string_temporal2=""
+                string_resultado=""
+                #recorremos *TODA* la lista y recuperamos los valores para este grupo
                 actual = self.primero
                 while actual != None:
                 # si encontramos coincidencia del digito y el tiempo , obtenemos su valor
-                    if actual.dato.tiempo==int(buffer):
+
+                    if actual.dato.tiempo==int(buffer) and len(string_auxiliar)!=0: #significa que ya se dio una vuelta
+                        print(len(string_resultado))
+                        string_temporal2=str(actual.dato.frecuencia)
+                        # se suma string_temporal con buffer2
+                        string_temporal+=str(int(string_temporal2)+int(string_auxiliar[contador]))+","
+                        contador+=2
+
+                    elif actual.dato.tiempo==int(buffer):
                         string_temporal+=str(actual.dato.frecuencia)+","
+
                     actual = actual.siguiente
-                string_resultado+=string_temporal+"\n"
+                    
+                string_resultado+=string_temporal
                 buffer=""
+                contador=0
+
+        # # se elimina el inicio del strign que no se necesita
+        # palabra= "2,3,0,4,5,7,0,6"
+        # #imprimir desde el 5 hsta el 6
+        # print(palabra[8:])
+
         #devolvemos el string resultado
         return string_resultado
     

@@ -78,11 +78,11 @@ def generar_grafica_original(nombreGrafica,nombreSignal):
         print("Grafica generada")
 
 
-def generar_grafica_patrones(nombreGrafica):
+def generar_grafica_patrones(nombreGrafica,nombreSignal):
         nombre = nombreGrafica+".dot"
         f = open(nombre, 'w')
          # se guara todo el texto y se cierra el archivo 
-        f.write(str(lista_signals_temporal.grafica_mi_lista_de_patrones()))
+        f.write(str(lista_signals_temporal.graficar_lista_patrones_datos(nombreSignal)))
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
         # se pasa el archivo a png
@@ -90,9 +90,9 @@ def generar_grafica_patrones(nombreGrafica):
         print("Grafica de patrones generada")
 
 
-# lista_signals_temporal.recorrer_e_imprimir_lista()
+lista_signals_temporal.recorrer_e_imprimir_lista()
 lista_signals_temporal.calcular_los_patrones("Prueba 1")
 # lista_signals_temporal.imprimir_nombre_signals()
 
-generar_grafica_original("Matriz", "Prueba 3")
-# generar_grafica_patrones("MatrizPatrones")
+# generar_grafica_original("Matriz", "Prueba 1")
+# generar_grafica_patrones("MatrizPatrones", "Prueba 1") 
