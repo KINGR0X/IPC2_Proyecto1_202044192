@@ -130,6 +130,7 @@ a0 [shape=none label=<
                     actual = actual.siguiente
                     
                 string_resultado+=string_temporal
+                string_auxiliar=string_resultado
                 buffer=""
                 contador=0
 
