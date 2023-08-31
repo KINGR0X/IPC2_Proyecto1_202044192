@@ -1,5 +1,6 @@
 from nodo_signal import nodo_signal
 from grupo import grupo
+import xml.etree.ElementTree as ET
 
 
 class lista_signals:
@@ -112,3 +113,75 @@ class lista_signals:
                 # actual.signal.lista_patrones_dato.recorrer_e_imprimir_lista()
                 return dot
             actual = actual.siguiente
+
+    #Generar XML de salida
+    def generar_xml_salida(self):
+        actual=self.primero
+        contador=0
+        # creación del xml de salida
+        mis_carceles=ET.Element("SenalesReducidas")
+        # Crear un sub elemento <ListaCarceles> que le pertenezca a <misCarceles>
+        lista_carceles=ET.SubElement(mis_carceles,"senal nombre="+"\""+actual.signall.nombre+"\""+" A="+"\""+actual.signall.amplitud+"\"")
+
+        # El while es para graficar cada signal
+        while actual!=None:
+
+            actual_lista_patrones=actual.signall.lista_grupos.primero
+
+            #while para recorrrer todos los grupos
+            while actual_lista_patrones!=None:
+
+                contador+=1
+                # Crear un sub elemento <Carcel> que le pertenezca a <listaCarceles>
+                signall=ET.SubElement(lista_carceles,"Grupo g="+"\""+str(contador)+"\"")
+                # Crear un sub elemento <nombre> que le pertenezca a <Carcel>
+                nombre=ET.SubElement(signall,"tiempos")
+                nombre.text=actual_lista_patrones.grupo.el_grupo[:-1]
+                # Recorremos la lista patrones (0 y 1) de la signall
+                lista_patrones=ET.SubElement(signall,"datosGrupo")
+                
+                frecuencia=""
+                # ciclo for para separar cada numero del string de grupo
+                for i in range(len(actual_lista_patrones.grupo.cadena_grupo)):
+                    # se guardan los strings hasta encontrar una coma
+                    if actual_lista_patrones.grupo.cadena_grupo[i]!=",":
+                        frecuencia+=actual_lista_patrones.grupo.cadena_grupo[i]
+                    else:
+                        dato=ET.SubElement(lista_patrones,"dato A="+"\""+str(i)+"\"")
+                        dato.text=str(frecuencia)
+                        frecuencia=""
+                    
+                actual_lista_patrones=actual_lista_patrones.siguiente
+
+            actual=actual.siguiente
+
+            #Generar xml
+            my_data=ET.tostring(mis_carceles)
+            my_data=str(my_data)
+            self.xml_arreglado(mis_carceles)
+
+            arbol_xml=ET.ElementTree(mis_carceles)
+            arbol_xml.write("./Salida_XML/reportes/salida.xml",encoding="UTF-8",xml_declaration=True)
+        print("XML generado")
+        
+
+    def xml_arreglado(self, element, indent='  '):
+        # Inicializar una cola con el elemento raíz y nivel de anidación 0
+        queue = [(0, element)]  # (level, element)
+        # Bucle principal: continúa mientras haya elementos en la cola
+        while queue:
+            # Extraer nivel y elemento actual de la cola
+            level, element = queue.pop(0)
+            # Crear tuplas para cada hijo con nivel incrementado
+            children = [(level + 1, child) for child in list(element)]
+            # Agregar saltos de línea e indentación al inicio del elemento actual
+            if children:
+                element.text = '\n' + indent * (level + 1)
+                # Agregar saltos de línea e indentación al final del elemento actual
+            if queue:
+                element.tail = '\n' + indent * queue[0][0]
+            else:
+                # Si este es el último elemento del nivel actual, reducir la indentación
+                element.tail = '\n' + indent * (level - 1)
+            # Insertar las tuplas de hijos al principio de la cola
+            queue[0:0] = children

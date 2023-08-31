@@ -93,6 +93,8 @@ def generar_grafica_grupos(nombreGrafica,nombreSignal):
 lista_signals_temporal.recorrer_e_imprimir_lista()
 lista_signals_temporal.calcular_los_patrones("Prueba 1")
 # lista_signals_temporal.imprimir_nombre_signals()
+lista_signals_temporal.generar_xml_salida()
 
-generar_grafica_original("Matriz", "Prueba 1")
-generar_grafica_grupos("MatrizPatrones", "Prueba 1") 
+# generar_grafica_original("Matriz", "Prueba 1")
+# generar_grafica_grupos("MatrizPatrones", "Prueba 1") 
+
