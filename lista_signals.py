@@ -104,13 +104,11 @@ class lista_signals:
             actual = actual.siguiente
 
     # graficar lista_patrones_datos colocando el nombre de la señal
-    def graficar_lista_patrones_datos(self, nombre_signal):
+    def graficar_lista_reducida(self, nombre_signal):
         actual = self.primero
         while actual != None:
             if actual.signall.nombre == nombre_signal:
-                dot = actual.signall.lista_grupos.graficar(actual.signall.nombre,
-                                                                    str(actual.signall.tiempo),
-                                                                    str(actual.signall.amplitud))
+                dot = actual.signall.lista_grupos.graficar(actual.signall.nombre,str(actual.signall.amplitud))
                 # actual.signal.lista_patrones_dato.recorrer_e_imprimir_lista()
                 return dot
             actual = actual.siguiente

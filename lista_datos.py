@@ -118,7 +118,6 @@ a0 [shape=none label=<
                 # si encontramos coincidencia del digito y el tiempo , obtenemos su valor
 
                     if actual.dato.tiempo==int(buffer) and len(string_auxiliar)!=0: #significa que ya se dio una vuelta
-                        print(len(string_resultado))
                         string_temporal2=str(actual.dato.frecuencia)
                         # se suma string_temporal con buffer2
                         string_temporal+=str(int(string_temporal2)+int(string_auxiliar[contador]))+","
