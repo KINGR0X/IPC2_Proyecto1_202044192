@@ -20,12 +20,12 @@ class lista_grupos:
 
 
   def recorrer_e_imprimir_lista(self):
-    print("===========================================================================================")
+    # print("===========================================================================================")
     actual = self.primero
     while actual != None:
-      print("Grupo: ",actual.grupo.el_grupo,"Cadena-grupo: ",actual.grupo.cadena_grupo)
+      # print("Grupo: ",actual.grupo.el_grupo,"Cadena-grupo: ",actual.grupo.cadena_grupo)
       actual = actual.siguiente
-    print("===========================================================================================")
+    # print("===========================================================================================")
 
     # print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
     # actual=self.primero
@@ -134,6 +134,6 @@ a0 [shape=none label=<
         if actual.grupo.cadena_grupo[i]!=",":
           frecuencia+=actual.grupo.cadena_grupo[i]
         else:
-          print(frecuencia)
+          # print(frecuencia)
           frecuencia=""
       actual=actual.siguiente

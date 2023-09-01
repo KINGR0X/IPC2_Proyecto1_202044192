@@ -1,4 +1,6 @@
 from colorama import init, Fore, Back, Style
+from main import cargar_archivo
+
 # ====== Menú principal ======
 
 
@@ -19,6 +21,7 @@ def menu_prinicipal():
 
         if opcion == "1":
             print("1.Cargar archivo")
+            cargar_archivo()
         elif opcion == "2":
             print("2.Procesar archivo")
         elif opcion == "3":

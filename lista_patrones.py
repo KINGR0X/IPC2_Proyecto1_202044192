@@ -18,12 +18,12 @@ class lista_patrones:
     self.contador_patrones+=1
 
   def recorrer_e_imprimir_lista(self):
-    print("===========================================================================================")
+    # print("===========================================================================================")
     actual = self.primero
     while actual != None:
-      print("Tiempo: ",actual.patron.tiempo,"Cadena-Patron: ",actual.patron.cadena_patron)
+      # print("Tiempo: ",actual.patron.tiempo,"Cadena-Patron: ",actual.patron.cadena_patron)
       actual = actual.siguiente
-    print("===========================================================================================")
+    # print("===========================================================================================")
 
   # Sirve para eliminar un nivel entero ej: eliminar todos los tiempos 1
   def eliminar(self,tiempo):
@@ -43,10 +43,6 @@ class lista_patrones:
 
   
   def encontrar_coincidencias(self):
-    print("")
-    print("")
-    print("")
-    print("")
     resultado = ""  # Inicializa un string vacío para almacenar el resultado final  
     # Bucle principal que se ejecuta mientras haya nodos en la lista
     while self.primero:

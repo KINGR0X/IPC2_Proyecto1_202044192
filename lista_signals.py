@@ -64,7 +64,7 @@ class lista_signals:
                 lista_patrones_temporal=actual.signall.lista_patrones_tiempo
                 grupos_sin_analizar=lista_patrones_temporal.encontrar_coincidencias()
                 # Este es un string, por ejemplo "1,2--3,5--4"
-                print(grupos_sin_analizar)
+                # print(grupos_sin_analizar)
                 # por cada grupo recorrer la matriz original e ir devolviendo las coordenadas especificadas
                 #recordando que por cada coincidencia encontrada, se va borrando para dejar solo las que no tienen grupo.
                 buffer=""
@@ -84,13 +84,13 @@ class lista_signals:
         print ("No se encontró la signall")
 
 
-    # def imprimir_nombre_signals(self):
-    #     print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-    #     actual = self.primero
-    #     while actual != None:
-    #         print(actual.signall.nombre)
-    #         actual = actual.siguiente
-    #     print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+    def imprimir_nombre_signals(self):
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.primero
+        while actual != None:
+            print(actual.signall.nombre)
+            actual = actual.siguiente
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
     # graficar mi_lista_original colocando el nombre de la señal
     def graficar_mi_lista_original(self, nombre_signal):
@@ -115,9 +115,10 @@ class lista_signals:
             actual = actual.siguiente
 
     #Generar XML de salida
-    def generar_xml_salida(self):
+    def generar_xml_salida(self,direccion):
         actual=self.primero
         contador=0
+        contadorAux=0
         # creación del xml de salida
         mis_carceles=ET.Element("SenalesReducidas")
         # Crear un sub elemento <ListaCarceles> que le pertenezca a <misCarceles>
@@ -125,6 +126,10 @@ class lista_signals:
 
         # El while es para graficar cada signal
         while actual!=None:
+
+            if contadorAux!=0:
+                # Crear un sub elemento <ListaCarceles> que le pertenezca a <misCarceles>
+                lista_carceles=ET.SubElement(lista_carceles,"senal nombre="+"\""+actual.signall.nombre+"\""+" A="+"\""+actual.signall.amplitud+"\"")
 
             actual_lista_patrones=actual.signall.lista_grupos.primero
 
@@ -142,18 +147,22 @@ class lista_signals:
                 
                 frecuencia=""
                 # ciclo for para separar cada numero del string de grupo
+                contadorA=0
                 for i in range(len(actual_lista_patrones.grupo.cadena_grupo)):
                     # se guardan los strings hasta encontrar una coma
                     if actual_lista_patrones.grupo.cadena_grupo[i]!=",":
                         frecuencia+=actual_lista_patrones.grupo.cadena_grupo[i]
                     else:
-                        dato=ET.SubElement(lista_patrones,"dato A="+"\""+str(i)+"\"")
+                        contadorA+=1
+                        dato=ET.SubElement(lista_patrones,"dato A="+"\""+str(contadorA)+"\"")
                         dato.text=str(frecuencia)
                         frecuencia=""
                     
                 actual_lista_patrones=actual_lista_patrones.siguiente
 
             actual=actual.siguiente
+            contadorAux+=1
+            contador=0
 
             #Generar xml
             my_data=ET.tostring(mis_carceles)
@@ -161,8 +170,8 @@ class lista_signals:
             self.xml_arreglado(mis_carceles)
 
             arbol_xml=ET.ElementTree(mis_carceles)
-            arbol_xml.write("./Salida_XML/reportes/salida.xml",encoding="UTF-8",xml_declaration=True)
-        print("XML generado")
+            arbol_xml.write(direccion,encoding="UTF-8",xml_declaration=True)
+
         
 
     def xml_arreglado(self, element, indent='  '):
