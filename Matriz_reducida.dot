@@ -1,8 +1,8 @@
 
 digraph G {
 subgraph {
-nodo_00[label=" Señal Facilita ",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
-nodo_01_left[label="Amplitud\n3",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
+nodo_00[label=" Prueba 2 ",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
+nodo_01_left[label="Amplitud\n4",fontcolor="#000000",fillcolor=gold, style=filled,shape=box];
 nodo_00 -> nodo_01_left;
 }
 
@@ -11,25 +11,23 @@ node [fontname="Helvetica,Arial,sans-serif"]
 edge [fontname="Helvetica,Arial,sans-serif"]
 a0 [shape=none label=<
 <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:red" gradientangle="315">
-      <TR><TD border="3"  bgcolor="yellow" gradientangle="315">G=1(1,2,10)</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">9</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">16</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">8</TD>
-</TR>
-<TR><TD border="3"  bgcolor="yellow" gradientangle="315">G=2(3,4,5)</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">0</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">0</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">0</TD>
-</TR>
-<TR><TD border="3"  bgcolor="yellow" gradientangle="315">G=3(6,7)</TD>
+      <TR><TD border="3"  bgcolor="yellow" gradientangle="315">G=1(1,3)</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">5</TD>
 <TD border="3"  bgcolor="yellow" gradientangle="315">7</TD>
 <TD border="3"  bgcolor="yellow" gradientangle="315">0</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">8</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">6</TD>
 </TR>
-<TR><TD border="3"  bgcolor="yellow" gradientangle="315">G=4(8,9)</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">9</TD>
-<TD border="3"  bgcolor="yellow" gradientangle="315">9</TD>
+<TR><TD border="3"  bgcolor="yellow" gradientangle="315">G=2(2,5)</TD>
 <TD border="3"  bgcolor="yellow" gradientangle="315">0</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">0</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">9</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">4</TD>
+</TR>
+<TR><TD border="3"  bgcolor="yellow" gradientangle="315">G=3(4)</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">1</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">0</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">1</TD>
+<TD border="3"  bgcolor="yellow" gradientangle="315">5</TD>
 
 </TR></TABLE>>];
 }        

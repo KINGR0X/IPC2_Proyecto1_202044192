@@ -115,11 +115,11 @@ def menu_prinicipal():
 
                 # === convertir el numero seleccionado a el nombre de la señal ===
                 actual = lista_signals_temporal.primero
-                contadorAux=1
+                contadorAux=0
                 signal_a_graficar=""
                 while actual != None:
+                    contadorAux+=1
                     if numero_signal == str(contadorAux):
-                        contadorAux+=1
                         signal_a_graficar=actual.signall.nombre
                         # lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
                     actual = actual.siguiente
@@ -143,7 +143,7 @@ def menu_prinicipal():
             except:
                 print(Fore.RED+"=== Error al inicializar el sistema ===")
                 menu_prinicipal()
-                
+
         elif opcion == "7":
             print("7.Salir")
             break
