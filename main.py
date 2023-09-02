@@ -16,6 +16,8 @@ lista_signals_temporal=lista_signals()
 
 def menu_prinicipal():
     print(Fore.YELLOW+"\n=== Menú principal ===".center(100))
+    global ArchivoProcesado
+    global graficado
     while True:
         print(Fore.YELLOW+"\n=== Seleccione una opción del menú ===")
         print(Fore.WHITE+"1.Cargar archivo")
@@ -39,29 +41,48 @@ def menu_prinicipal():
                 menu_prinicipal()
 
         elif opcion == "2":
-            print(Fore.BLUE+"Leyendo el archivo de entrada...")
-            print(Fore.BLUE+"Creando nodos...")
-            print(Fore.BLUE+"Calculando patrones...")
-            print(Fore.BLUE+"Creando grupos...")
-            print(Fore.GREEN+"Archivo procesado con exito")
 
-        elif opcion == "3":
             try:
-                print(Fore.YELLOW+"=== Seleccione una ubicación para el archivo de salida ===")
-                #se pide la dirección donde se guardará el archivo
-                direccion_archivo = filedialog.asksaveasfilename(defaultextension=".xml",
-                                                                filetypes=[("Archivos de texto", "*.xml"), ("Todos los archivos", "*.*")],
-                                                                title="Guardar archivo como", initialfile="Saida")
+                ArchivoProcesado=True
+                print(Fore.BLUE+"Leyendo el archivo de entrada...")
+                print(Fore.BLUE+"Creando nodos...")
+                print(Fore.BLUE+"Calculando patrones...")
+                print(Fore.BLUE+"Creando grupos...")
+                #se imprime el nombre de las señales procesadas
 
-                # Se debe de llamar a cada señal del archivo por separado
+                # Se debe de llamar a cada señal del archivo por separado, para luego usarlo en la grafica
                 actual = lista_signals_temporal.primero
                 while actual != None:
-                    lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
-                    actual = actual.siguiente
-                lista_signals_temporal.generar_xml_salida(direccion_archivo)
-                print(Fore.GREEN+"Archivo de salida generado con exito")
+                        lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
+                        actual = actual.siguiente
+                        
+                print(Fore.GREEN+"Archivo procesado con exito")
             except:
-                print(Fore.RED+"=== Error al generar el archivo de salida ===")
+                print(Fore.RED+"=== Error al procesar el archivo ===")
+                menu_prinicipal()
+
+        elif opcion == "3":
+
+            if ArchivoProcesado==True:
+                try:
+                    print(Fore.YELLOW+"=== Seleccione una ubicación para el archivo de salida ===")
+                    #se pide la dirección donde se guardará el archivo
+                    direccion_archivo = filedialog.asksaveasfilename(defaultextension=".xml",
+                                                                    filetypes=[("Archivos de texto", "*.xml"), ("Todos los archivos", "*.*")],
+                                                                    title="Guardar archivo como", initialfile="Saida")
+
+                    # Se debe de llamar a cada señal del archivo por separado
+                    actual = lista_signals_temporal.primero
+                    while actual != None:
+                        lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
+                        actual = actual.siguiente
+                    lista_signals_temporal.generar_xml_salida(direccion_archivo)
+                    print(Fore.GREEN+"Archivo de salida generado con exito")
+                except:
+                    print(Fore.RED+"=== Error al generar el archivo de salida ===")
+                    menu_prinicipal()
+            else:
+                print(Fore.RED+"=== No se a procesado ningun archivo ===")
                 menu_prinicipal()
 
         elif opcion == "4":
@@ -75,63 +96,72 @@ def menu_prinicipal():
             print(Fore.YELLOW+"=============================================================")
 
         elif opcion == "5":
-            try:
-                print(Fore.YELLOW+"=== Ingrese el numero de la señal a graficar===")
 
-                #Funcionpara graficar las dos matrices a la vez
-                def generar_grafica_original(nombreSignal):
-                    nombreGrafica= "Matriz_original"
-                    nombre = nombreGrafica+".dot"
-                    f = open(nombre, 'w')
-                    # se guara todo el texto y se cierra el archivo 
-                    f.write(str(lista_signals_temporal.graficar_mi_lista_original(nombreSignal)))
-                    f.close()
-                    os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
-                    # se pasa el archivo a png
-                    os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
+            if ArchivoProcesado==True:
 
-                    # === grafica matriz reducida ===
-                    nombreGraficaReducida= "Matriz_reducida"
-                    nombreR = nombreGraficaReducida+".dot"
-                    f = open(nombreR, 'w')
-                    # se guara todo el texto y se cierra el archivo 
-                    f.write(str(lista_signals_temporal.graficar_lista_reducida(nombreSignal)))
-                    f.close()
-                    os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
-                    # se pasa el archivo a png
-                    os.system("""dot -Tpng """+nombreR+""" -o """+nombreGraficaReducida+""".png""")
-                
-                # === Imprimir las señales que hay en el archivo ===
-                actual = lista_signals_temporal.primero
-                contador=0
-                while actual != None:
-                    contador+=1
-                    print(Fore.WHITE+str(contador)+". "+actual.signall.nombre)
-                    # lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
-                    actual = actual.siguiente
+                try:
+                    print(Fore.YELLOW+"=== Ingrese el numero de la señal a graficar===")
 
-                # el usuario escoge un numero
-                numero_signal = input("Señal a graficar: ").strip()
+                    #Funcionpara graficar las dos matrices a la vez
+                    def generar_grafica_original(nombreSignal):
+                        nombreGrafica= "Matriz_original"
+                        nombre = nombreGrafica+".dot"
+                        f = open(nombre, 'w')
+                        # se guara todo el texto y se cierra el archivo 
+                        f.write(str(lista_signals_temporal.graficar_mi_lista_original(nombreSignal)))
+                        f.close()
+                        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
+                        # se pasa el archivo a png
+                        os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
 
-                # === convertir el numero seleccionado a el nombre de la señal ===
-                actual = lista_signals_temporal.primero
-                contadorAux=0
-                signal_a_graficar=""
-                while actual != None:
-                    contadorAux+=1
-                    if numero_signal == str(contadorAux):
-                        signal_a_graficar=actual.signall.nombre
+                        # === grafica matriz reducida ===
+                        nombreGraficaReducida= "Matriz_reducida"
+                        nombreR = nombreGraficaReducida+".dot"
+                        f = open(nombreR, 'w')
+                        # se guara todo el texto y se cierra el archivo 
+                        f.write(str(lista_signals_temporal.graficar_lista_reducida(nombreSignal)))
+                        f.close()
+                        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
+                        # se pasa el archivo a png
+                        os.system("""dot -Tpng """+nombreR+""" -o """+nombreGraficaReducida+""".png""")
+                    
+                    # === Imprimir las señales que hay en el archivo ===
+                    actual = lista_signals_temporal.primero
+                    contador=0
+                    while actual != None:
+                        contador+=1
+                        print(Fore.WHITE+str(contador)+". "+actual.signall.nombre)
                         # lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
-                    actual = actual.siguiente
+                        actual = actual.siguiente
 
-                # === Se calculan los patrones para graficar ===
-                lista_signals_temporal.calcular_los_patrones(str(signal_a_graficar))
-                #Generar grafica
-                generar_grafica_original(signal_a_graficar)
-                print(Fore.GREEN+"Graficas generadas con exito")
+                    # el usuario escoge un numero
+                    numero_signal = input("Señal a graficar: ").strip()
 
-            except:
-                print(Fore.RED+"=== Error al generar las graficas ===")
+                    # === convertir el numero seleccionado a el nombre de la señal ===
+                    actual = lista_signals_temporal.primero
+                    contadorAux=0
+                    signal_a_graficar=""
+                    while actual != None:
+                        contadorAux+=1
+                        if numero_signal == str(contadorAux):
+                            signal_a_graficar=actual.signall.nombre
+                            # lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
+                        actual = actual.siguiente
+
+                    # === Se calculan los patrones para graficar ===
+                    # pero solo se calculan si no se han calculado antes (si no se han graficado ya)
+                    # if graficado==False:
+                    #     lista_signals_temporal.calcular_los_patrones(str(signal_a_graficar))
+                    # #Generar grafica
+                    generar_grafica_original(signal_a_graficar)
+                    graficado=True
+                    print(Fore.GREEN+"Graficas generadas con exito")
+
+                except:
+                    print(Fore.RED+"=== Error al generar las graficas ===")
+                    menu_prinicipal()
+            else:
+                print(Fore.RED+"=== No se a procesado ningun archivo ===")
                 menu_prinicipal()
 
         elif opcion == "6":
@@ -140,6 +170,7 @@ def menu_prinicipal():
                 #limpiar la lista
                 lista_signals_temporal=lista_signals()
                 print(Fore.GREEN+"Sistema inicializado con exito")
+                ArchivoProcesado=False
             except:
                 print(Fore.RED+"=== Error al inicializar el sistema ===")
                 menu_prinicipal()
@@ -211,46 +242,7 @@ def cargar_archivo():
     print(Fore.GREEN+"\n=== Archivo cargado ===".center(100))
     return lista_signals_temporal 
         
-    
 
-    
-# === funciones para generar las graficas ===
-
-# def generar_grafica_original(nombreSignal):
-#         nombreGrafica= "Matriz_original"
-#         nombre = nombreGrafica+".dot"
-#         f = open(nombre, 'w')
-#          # se guara todo el texto y se cierra el archivo 
-#         f.write(str(lista_signals_temporal.graficar_mi_lista_original(nombreSignal)))
-#         f.close()
-#         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
-#         # se pasa el archivo a png
-#         os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
-#         print("Grafica generada")
-
-#         # === grafica matriz reducida ===
-#         nombreGraficaReducida= "Matriz_reducida"
-#         nombreR = nombreGraficaReducida+".dot"
-#         f = open(nombreR, 'w')
-#          # se guara todo el texto y se cierra el archivo 
-#         f.write(str(lista_signals_temporal.graficar_lista_reducida(nombreSignal)))
-#         f.close()
-#         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
-#         # se pasa el archivo a png
-#         os.system("""dot -Tpng """+nombreR+""" -o """+nombreGraficaReducida+""".png""")
-#         print("Grafica de patrones generada")
-
-# def generar_grafica_grupos(nombreGrafica,nombreSignal):
-#         nombre = nombreGrafica+".dot"
-#         f = open(nombre, 'w')
-#          # se guara todo el texto y se cierra el archivo 
-#         f.write(str(lista_signals_temporal.graficar_lista_reducida(nombreSignal)))
-#         f.close()
-#         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
-#         # se pasa el archivo a png
-#         os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
-#         print("Grafica de patrones generada")
-
-
-
+ArchivoProcesado=False
+graficado=False
 menu_prinicipal()

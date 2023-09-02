@@ -85,12 +85,11 @@ class lista_signals:
 
 
     def imprimir_nombre_signals(self):
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        print("Señales procesadas:")
         actual = self.primero
         while actual != None:
             print(actual.signall.nombre)
             actual = actual.siguiente
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
     # graficar mi_lista_original colocando el nombre de la señal
     def graficar_mi_lista_original(self, nombre_signal):

@@ -23,7 +23,7 @@ class lista_grupos:
     # print("===========================================================================================")
     actual = self.primero
     while actual != None:
-      # print("Grupo: ",actual.grupo.el_grupo,"Cadena-grupo: ",actual.grupo.cadena_grupo)
+      print("Grupo: ",actual.grupo.el_grupo,"Cadena-grupo: ",actual.grupo.cadena_grupo)
       actual = actual.siguiente
     # print("===========================================================================================")
 
