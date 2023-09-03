@@ -71,11 +71,7 @@ def menu_prinicipal():
                                                                     filetypes=[("Archivos de texto", "*.xml"), ("Todos los archivos", "*.*")],
                                                                     title="Guardar archivo como", initialfile="Saida")
 
-                    # Se debe de llamar a cada señal del archivo por separado
-                    actual = lista_signals_temporal.primero
-                    while actual != None:
-                        lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
-                        actual = actual.siguiente
+                    # Se genera el archivo de salida
                     lista_signals_temporal.generar_xml_salida(direccion_archivo)
                     print(Fore.GREEN+"Archivo de salida generado con exito")
                 except:
