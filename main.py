@@ -103,26 +103,27 @@ def menu_prinicipal():
 
                     #Funcionpara graficar las dos matrices a la vez
                     def generar_grafica_original(nombreSignal):
-                        nombreGrafica= "Matriz_original"
-                        nombre = nombreGrafica+".dot"
+                        nombreOriginal= direccion_grafica+"_original"
+                        nombre = nombreOriginal+".dot"
                         f = open(nombre, 'w')
                         # se guara todo el texto y se cierra el archivo 
                         f.write(str(lista_signals_temporal.graficar_mi_lista_original(nombreSignal)))
                         f.close()
                         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
                         # se pasa el archivo a png
-                        os.system("""dot -Tpng """+nombre+""" -o """+nombreGrafica+""".png""")
+                        os.system("""dot -Tpng """+nombre+""" -o """+nombreOriginal+""".png""")
+                        
 
                         # === grafica matriz reducida ===
-                        nombreGraficaReducida= "Matriz_reducida"
-                        nombreR = nombreGraficaReducida+".dot"
+                        nombreReducida= direccion_grafica+"_reducida"
+                        nombreR= nombreReducida+".dot"
                         f = open(nombreR, 'w')
                         # se guara todo el texto y se cierra el archivo 
                         f.write(str(lista_signals_temporal.graficar_lista_reducida(nombreSignal)))
                         f.close()
                         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin' 
                         # se pasa el archivo a png
-                        os.system("""dot -Tpng """+nombreR+""" -o """+nombreGraficaReducida+""".png""")
+                        os.system("""dot -Tpng """+nombreR+""" -o """+nombreReducida+""".png""")
                     
                     # === Imprimir las señales que hay en el archivo ===
                     actual = lista_signals_temporal.primero
@@ -146,6 +147,13 @@ def menu_prinicipal():
                             signal_a_graficar=actual.signall.nombre
                             # lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
                         actual = actual.siguiente
+
+                    # El usuario selecciona donde guardar la grafica
+                    print(Fore.YELLOW+"=== Seleccione una ubicación para guardar la grafica ===")
+                    #se pide la dirección donde se guardará el archivo
+                    direccion_grafica = filedialog.asksaveasfilename(
+                                                                    filetypes=[("Archivos de texto", "*.dot"), ("Todos los archivos", "*.*")],
+                                                                    title="Guardar archivo como", initialfile="Matriz")
 
                     # === Se calculan los patrones para graficar ===
                     # pero solo se calculan si no se han calculado antes (si no se han graficado ya)
