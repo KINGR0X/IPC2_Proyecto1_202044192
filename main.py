@@ -11,13 +11,12 @@ import os
 from colorama import init, Fore, Back, Style
 
 
-# se establece lista_signals_temporal como una lista global
-lista_signals_temporal=lista_signals()
-
 def menu_prinicipal():
     print(Fore.YELLOW+"\n=== Menú principal ===".center(100))
     global ArchivoProcesado
     global graficado
+    global lista_signals_temporal
+    global archivoCargado
     while True:
         print(Fore.YELLOW+"\n=== Seleccione una opción del menú ===")
         print(Fore.WHITE+"1.Cargar archivo")
@@ -35,6 +34,7 @@ def menu_prinicipal():
             try:
                 print(Fore.YELLOW+"=== Seleccione un archivo ===")
                 lista_signals_temporal=cargar_archivo()
+                archivoCargado=True
                 print(Fore.GREEN+"Archivo cargado con exito")
             except:
                 print(Fore.RED+"=== Error al cargar el archivo ===")
@@ -43,20 +43,23 @@ def menu_prinicipal():
         elif opcion == "2":
 
             try:
-                ArchivoProcesado=True
-                print(Fore.BLUE+"Leyendo el archivo de entrada...")
-                print(Fore.BLUE+"Creando nodos...")
-                print(Fore.BLUE+"Calculando patrones...")
-                print(Fore.BLUE+"Creando grupos...")
-                #se imprime el nombre de las señales procesadas
+                if ArchivoProcesado==False and archivoCargado==True:
+                    ArchivoProcesado=True
+                    print(Fore.BLUE+"Leyendo el archivo de entrada...")
+                    print(Fore.BLUE+"Creando nodos...")
+                    print(Fore.BLUE+"Calculando patrones...")
+                    print(Fore.BLUE+"Creando grupos...")
+                    #se imprime el nombre de las señales procesadas
 
-                # Se debe de llamar a cada señal del archivo por separado, para luego usarlo en la grafica
-                actual = lista_signals_temporal.primero
-                while actual != None:
-                        lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
-                        actual = actual.siguiente
-                        
-                print(Fore.GREEN+"Archivo procesado con exito")
+                    # Se debe de llamar a cada señal del archivo por separado, para luego usarlo en la grafica
+                    actual = lista_signals_temporal.primero
+                    while actual != None:
+                            lista_signals_temporal.calcular_los_patrones(str(actual.signall.nombre))
+                            actual = actual.siguiente
+                            
+                    print(Fore.GREEN+"Archivo procesado con exito")
+                else:
+                    print(Fore.RED+"=== Error al procesar el archivo ===")
             except:
                 print(Fore.RED+"=== Error al procesar el archivo ===")
                 menu_prinicipal()
@@ -164,9 +167,10 @@ def menu_prinicipal():
             try:
                 print(Fore.YELLOW+"=== Inicializando sistema ===")
                 #limpiar la lista
-                lista_signals_temporal=lista_signals()
-                print(Fore.GREEN+"Sistema inicializado con exito")
+                archivoCargado=False
                 ArchivoProcesado=False
+                lista_signals_temporal=None
+                print(Fore.GREEN+"Sistema inicializado con exito")
             except:
                 print(Fore.RED+"=== Error al inicializar el sistema ===")
                 menu_prinicipal()
@@ -237,8 +241,9 @@ def cargar_archivo():
 
     print(Fore.GREEN+"\n=== Archivo cargado ===".center(100))
     return lista_signals_temporal 
-        
 
+# Inicializar variables
+archivoCargado=False
 ArchivoProcesado=False
 graficado=False
 menu_prinicipal()
