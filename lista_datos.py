@@ -26,6 +26,27 @@ class lista_datos:
         actual.siguiente = nodo_dato(dato=dato)
         self.contador_datos += 1
 
+    def insertar_dato_ordenado(self, dato):
+        nueva_dato = nodo_dato(dato=dato)
+        self.contador_datos += 1
+        # Si la lista está vacía solo añade el nuevo nodo
+        if self.primero is None:
+            self.primero = nueva_dato
+            return
+        # Caso especial: la nueva dato debe ser el nuevo primer nodo, debe reemplazar al primero
+        if dato.tiempo < self.primero.dato.tiempo or (dato.tiempo == self.primero.dato.tiempo and dato.amplitud <= self.primero.dato.amplitud):
+            nueva_dato.siguiente = self.primero
+            self.primero = nueva_dato
+            return
+        # Si no cumple con ninguno de los casos, recorrer hasta encontrar su posición
+        actual = self.primero
+        while actual.siguiente is not None and (
+                dato.tiempo > actual.siguiente.dato.tiempo or (
+                        dato.tiempo == actual.siguiente.dato.tiempo and dato.amplitud > actual.siguiente.dato.amplitud)):
+            actual = actual.siguiente
+        nueva_dato.siguiente = actual.siguiente
+        actual.siguiente = nueva_dato
+
     def recorrer_e_imprimir_lista(self):
         # print("el primer dato es:",self.primero.dato.tiempo, self.primero.dato.amplitud, self.primero.dato.frecuencia)
         print("============================================================")

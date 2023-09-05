@@ -38,7 +38,7 @@ def menu_prinicipal():
                 print(Fore.GREEN+"Archivo cargado con exito")
             except:
                 print(Fore.RED+"=== Error al cargar el archivo ===")
-                menu_prinicipal()
+                
 
         elif opcion == "2":
 
@@ -62,7 +62,7 @@ def menu_prinicipal():
                     print(Fore.RED+"=== Error al procesar el archivo ===")
             except:
                 print(Fore.RED+"=== Error al procesar el archivo ===")
-                menu_prinicipal()
+                
 
         elif opcion == "3":
 
@@ -79,10 +79,10 @@ def menu_prinicipal():
                     print(Fore.GREEN+"Archivo de salida generado con exito")
                 except:
                     print(Fore.RED+"=== Error al generar el archivo de salida ===")
-                    menu_prinicipal()
+                    
             else:
                 print(Fore.RED+"=== No se a procesado ningun archivo ===")
-                menu_prinicipal()
+                
 
         elif opcion == "4":
             print(Fore.YELLOW+"             ===== Datos del estudiante =====")
@@ -166,10 +166,10 @@ def menu_prinicipal():
 
                 except:
                     print(Fore.RED+"=== Error al generar las graficas ===")
-                    menu_prinicipal()
+                    
             else:
                 print(Fore.RED+"=== No se a procesado ningun archivo ===")
-                menu_prinicipal()
+                
 
         elif opcion == "6":
             try:
@@ -181,7 +181,7 @@ def menu_prinicipal():
                 print(Fore.GREEN+"Sistema inicializado con exito")
             except:
                 print(Fore.RED+"=== Error al inicializar el sistema ===")
-                menu_prinicipal()
+                
 
         elif opcion == "7":
             print("7.Salir")
@@ -232,16 +232,18 @@ def cargar_archivo():
             nuevo = dato(int(tiempo_dato), int(amplitud_dato), int(frecuencia_dato))
 
             #insertamos el objeto nuevo en la lista de datos
-            lista_datos_temporal.insertar_dato(nuevo)
+            # lista_datos_temporal.insertar_dato(nuevo)
+            # Insertar el objeto nuevo en la lista de datos
+            lista_datos_temporal.insertar_dato_ordenado(nuevo)
             
             # Inserción en lista_datos_patrones_temporal
             # Si no es un "0" entonces se guarda como un "1"
             if frecuencia_dato != "0":
                 nuevo = dato(int(tiempo_dato), int(amplitud_dato), 1)
-                lista_datos_patrones_temporal.insertar_dato(nuevo)
+                lista_datos_patrones_temporal.insertar_dato_ordenado(nuevo)
             else:
                 nuevo = dato(int(tiempo_dato), int(amplitud_dato), 0)
-                lista_datos_patrones_temporal.insertar_dato(nuevo)
+                lista_datos_patrones_temporal.insertar_dato_ordenado(nuevo)
 
         # Se guarda la lista de señales que hay en el XML     
         lista_signals_temporal.insertar_dato(signall(
