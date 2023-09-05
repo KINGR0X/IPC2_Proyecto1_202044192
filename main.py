@@ -49,6 +49,10 @@ def menu_prinicipal():
                     print(Fore.BLUE+"Creando nodos...")
                     print(Fore.BLUE+"Calculando patrones...")
                     print(Fore.BLUE+"Creando grupos...")
+                    print(" ")
+                    print(Fore.BLUE+"Nombre de las señales procesadas:")
+                    lista_signals_temporal.imprimir_nombre_signals()
+                    print(" ")
                     #se imprime el nombre de las señales procesadas
 
                     # Se debe de llamar a cada señal del archivo por separado, para luego usarlo en la grafica

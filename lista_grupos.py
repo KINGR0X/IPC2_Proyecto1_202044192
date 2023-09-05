@@ -19,13 +19,14 @@ class lista_grupos:
 
 
 
-  def recorrer_e_imprimir_lista(self):
-    # print("===========================================================================================")
+  def recorrer_e_imprimir_lista(self,nombreSignal):
+    print("=== Grupos procesados ===")
+    print(nombreSignal+":")
     actual = self.primero
     while actual != None:
-      print("Grupo: ",actual.grupo.el_grupo,"Cadena-grupo: ",actual.grupo.cadena_grupo)
+      print("Grupo: ",actual.grupo.el_grupo[:-1]+" |","Cadena-grupo: ",actual.grupo.cadena_grupo[:-1])
       actual = actual.siguiente
-    # print("===========================================================================================")
+    print("\n")
 
     # print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
     # actual=self.primero
