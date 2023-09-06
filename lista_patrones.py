@@ -18,12 +18,12 @@ class lista_patrones:
     self.contador_patrones+=1
 
   def recorrer_e_imprimir_lista(self):
-    # print("===========================================================================================")
+    print("=== Matriz de patrones ===")
     actual = self.primero
     while actual != None:
-      # print("Tiempo: ",actual.patron.tiempo,"Cadena-Patron: ",actual.patron.cadena_patron)
+      print("Tiempo: ",actual.patron.tiempo,"Cadena-Patron: ",actual.patron.cadena_patron[:-1])
       actual = actual.siguiente
-    # print("===========================================================================================")
+    print(" ")
 
   # Sirve para eliminar un nivel entero ej: eliminar todos los tiempos 1
   def eliminar(self,tiempo):

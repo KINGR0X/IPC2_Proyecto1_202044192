@@ -47,6 +47,7 @@ class lista_datos:
         nueva_dato.siguiente = actual.siguiente
         actual.siguiente = nueva_dato
 
+
     def recorrer_e_imprimir_lista(self):
         # print("el primer dato es:",self.primero.dato.tiempo, self.primero.dato.amplitud, self.primero.dato.frecuencia)
         print("============================================================")

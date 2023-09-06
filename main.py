@@ -193,7 +193,7 @@ def menu_prinicipal():
         else:
             print(Fore.RED+"Opción no válida. Por favor seleccione una opción del menú.")
 
- 
+
 
 def cargar_archivo():
     # Recuperar el xml
@@ -235,8 +235,6 @@ def cargar_archivo():
             # creacion de un nuevo dato con los atributos obtenidos
             nuevo = dato(int(tiempo_dato), int(amplitud_dato), int(frecuencia_dato))
 
-            #insertamos el objeto nuevo en la lista de datos
-            # lista_datos_temporal.insertar_dato(nuevo)
             # Insertar el objeto nuevo en la lista de datos
             lista_datos_temporal.insertar_dato_ordenado(nuevo)
             
@@ -254,6 +252,7 @@ def cargar_archivo():
             nombre_signal, tiempo_signal, amplitud_signal, lista_datos_temporal, lista_datos_patrones_temporal,lista_patrones_temporal,lista_grupos_temporal))   
 
     print(Fore.GREEN+"\n=== Archivo cargado ===".center(100))
+    # lista_datos_temporal.agregar_dato_faltante(int(tiempo_signal),int(amplitud_signal))
     return lista_signals_temporal 
 
 # Inicializar variables
@@ -261,3 +260,29 @@ archivoCargado=False
 ArchivoProcesado=False
 graficado=False
 menu_prinicipal()
+
+
+
+    # # Metodo para agregar dato en caso de que falte un tiempo
+    # def agregar_dato_faltante(self,tiempoOriginal,amplitudOriginal):
+    #     tiempoAux= 1
+    #     amplitudAux= 1
+    #     filaterminada=False
+    #     actual =self.primero
+
+    #     # se recorre toda la lista en busca de posiciones faltantes
+    #     while actual.siguiente:
+
+    #         if amplitudAux != actual.dato.amplitud:
+    #             print("falta un nodo en la posicion:", tiempoAux, amplitudAux)
+
+    #         if amplitudAux == amplitudOriginal:
+    #             amplitudAux=0
+                
+    #         amplitudAux+=1
+            
+    #         actual = actual.siguiente
+        
+
+    #     # cuando el while termina es porque se llego al ultimo nodo, entonces se inserta el nuevo nodo
+    #     # actual.siguiente = nodo_dato(dato=dato)
